@@ -409,7 +409,7 @@ export default function Home() {
                 <a href="https://www.linkedin.com/in/smit-kotak-170804129/" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">LinkedIn</a>
                 <a href="#" className="hover:opacity-60 transition-opacity">GitHub</a>
               </div>
-              <p className="mt-40 text-[8px] uppercase tracking-[0.6em] font-black opacity-40">SMIT KOTAK // EST. 1999 // TCS</p>
+                            <p className="mt-40 text-[8px] uppercase tracking-[0.6em] font-black opacity-40">Smit Kotak &copy; 2026. Architecting Stability.</p>
            </div>
         </footer>
       </div>
