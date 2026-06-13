@@ -400,16 +400,44 @@ export default function Home() {
            <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
               <h2 className="text-[40vw] font-black italic tracking-tighter select-none">SYNC</h2>
            </div>
-           <div className="relative z-10 max-w-4xl mx-auto">
-              <h2 className="text-7xl md:text-9xl font-black tracking-tighter mb-12 uppercase italic leading-none">Let's<br />Sync.</h2>
-              <a href="mailto:smitkotak1999@gmail.com" className="text-2xl md:text-4xl font-bold border-b-4 border-black pb-2 hover:bg-black hover:text-cyan px-4 transition-all inline-block mb-12">
-                smitkotak1999@gmail.com
-              </a>
-              <div className="flex justify-center gap-12 font-mono text-[10px] uppercase tracking-[0.4em] font-black">
-                <a href="https://www.linkedin.com/in/smit-kotak-170804129/" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">LinkedIn</a>
-                <a href="#" className="hover:opacity-60 transition-opacity">GitHub</a>
+           <div className="relative z-10 max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-7xl md:text-9xl font-black tracking-tighter mb-20 uppercase italic leading-none">
+                  Let's<br />Sync.
+                </h2>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 gap-px bg-black/10 max-w-4xl mx-auto border border-black/10 rounded-2xl overflow-hidden shadow-2xl">
+                 <a 
+                   href="mailto:smitkotak1999@gmail.com" 
+                   className="group bg-cyan hover:bg-black p-12 transition-all duration-500 flex flex-col items-center justify-center gap-4 border-r border-black/5"
+                 >
+                    <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-black group-hover:text-cyan opacity-60">Professional Inquiry</span>
+                    <span className="text-xl md:text-2xl font-bold group-hover:text-cyan break-all">smitkotak1999@gmail.com</span>
+                    <div className="w-8 h-px bg-black group-hover:bg-cyan group-hover:w-16 transition-all duration-500" />
+                 </a>
+                 
+                 <a 
+                   href="https://www.linkedin.com/in/smit-kotak-170804129/" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   className="group bg-cyan hover:bg-black p-12 transition-all duration-500 flex flex-col items-center justify-center gap-4"
+                 >
+                    <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-black group-hover:text-cyan opacity-60">Network & Social</span>
+                    <span className="text-xl md:text-2xl font-bold group-hover:text-cyan">linkedin.com/smit-kotak</span>
+                    <div className="w-8 h-px bg-black group-hover:bg-cyan group-hover:w-16 transition-all duration-500" />
+                 </a>
               </div>
-                            <p className="mt-40 text-[8px] uppercase tracking-[0.6em] font-black opacity-40">Smit Kotak &copy; 2026. Architecting Stability.</p>
+
+              <div className="mt-24 space-y-4">
+                 <div className="text-[10px] font-mono uppercase tracking-[0.5em] font-black opacity-40">Architecting Stability // Ahmedabad, India</div>
+                 <p className="text-[8px] uppercase tracking-[0.6em] font-black opacity-30">Smit Kotak &copy; 2026</p>
+              </div>
            </div>
         </footer>
       </div>
