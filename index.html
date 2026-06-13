@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smit Kotak | Premium Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --accent: #00ffff;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            cursor: crosshair;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Cinematic Loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .loader-content {
+            position: relative;
+            text-align: center;
+        }
+
+        .loader-mask {
+            height: 120px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader-word {
+            font-size: 9vw;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            display: none;
+            font-style: italic;
+            padding: 0 0.2em; /* Added padding to prevent italic clipping */
+            white-space: nowrap;
+        }
+
+        .loader-word.active {
+            display: block;
+        }
+
+        .loader-bar-bg {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .loader-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        #main-content { opacity: 0; }
+
+        .floating-menu {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            z-index: 100;
+            padding: 16px 32px;
+            display: flex;
+            gap: 32px;
+        }
+
+        .project-card {
+            perspective: 1000px;
+        }
+
+        .project-inner {
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
+
+        .project-card:hover .project-inner {
+            transform: rotateX(10deg) rotateY(10deg);
+        }
+
+        .circle-anim {
+            position: absolute;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-content">
+            <div class="loader-mask">
+                <div class="loader-word active">Design</div>
+                <div class="loader-word" style="color: var(--accent)">Architect</div>
+                <div class="loader-word" style="color: #fbbf24">Scale</div>
+                <div class="loader-word" style="background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Transform</div>
+            </div>
+        </div>
+        <div class="loader-bar-bg">
+            <div class="loader-bar-fill" id="loader-bar"></div>
+        </div>
+    </div>
+
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="floating-menu">
+        <a href="#about" class="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-cyan-400">About</a>
+        <a href="#projects" class="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-cyan-400">Works</a>
+        <a href="#tech" class="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-cyan-400">Core</a>
+        <a href="#contact" class="text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-cyan-400">Sync</a>
+    </div>
+
+    <div id="main-content">
+        <!-- Hero Section -->
+        <section class="h-screen flex items-center justify-center relative overflow-hidden">
+            <div id="hero-circles"></div>
+            <div class="text-center z-10">
+                <span class="mono text-cyan-400 text-sm uppercase tracking-[0.5em] mb-8 block reveal">Software Engineer @ TCS</span>
+                <h1 class="text-[12vw] font-black tracking-tighter leading-none uppercase italic reveal">SMIT<br>KOTAK</h1>
+                <p class="text-white/40 max-w-sm uppercase text-[10px] tracking-widest leading-loose mt-12 mx-auto reveal">
+                    High-performance Java architect<br>
+                    Modernizing enterprise engines for <span class="text-white">GE Aerospace</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-40 px-8 max-w-7xl mx-auto border-t border-white/5">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="scroll-reveal">
+                    <span class="mono text-cyan-400 text-[10px] uppercase tracking-[0.5em] mb-4 block">01 // Origins</span>
+                    <h2 class="text-5xl font-black tracking-tighter uppercase italic leading-none mb-8">Architect of<br>Stability.</h2>
+                    <p class="text-xl text-white/50 leading-relaxed mb-8">
+                        3.5+ years of experience at <span class="text-white font-bold">TCS</span>, leading teams in delivering mission-critical Java systems. Awarded the <span class="text-cyan-400">Contextual Masters Award</span> for technical excellence.
+                    </p>
+                    <div class="flex gap-12">
+                        <div><div class="text-4xl font-black">12+</div><div class="text-[10px] uppercase tracking-widest text-white/30">Migrations</div></div>
+                        <div><div class="text-4xl font-black">90%</div><div class="text-[10px] uppercase tracking-widest text-white/30">Efficiency</div></div>
+                    </div>
+                </div>
+                <div class="relative flex justify-center scroll-reveal">
+                    <div class="absolute w-80 h-80 bg-cyan-400/10 blur-[100px] rounded-full"></div>
+                    <img src="caricature.png" alt="Smit" class="w-80 relative z-10 grayscale hover:grayscale-0 transition-all duration-1000">
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" class="py-40 px-8 max-w-7xl mx-auto border-t border-white/5">
+            <h2 class="text-7xl font-black tracking-tighter uppercase italic leading-none mb-32 scroll-reveal">The<br>Manifesto</h2>
+            <div class="grid md:grid-cols-2 gap-x-20 gap-y-40">
+                <div class="project-card scroll-reveal">
+                    <div class="project-inner relative aspect-[16/10] bg-[#111] overflow-hidden border border-white/5">
+                        <img src="project_modernization.png" class="w-full h-full object-cover grayscale opacity-50">
+                        <div class="absolute bottom-8 left-8"><h3 class="text-3xl font-black uppercase italic leading-none">Modernization</h3></div>
+                    </div>
+                    <div class="mt-8 space-y-4">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-white/60">Spring Boot 3 Migration</h4>
+                        <p class="text-white/40 text-sm max-w-sm">Led modernization of 12+ critical apps for GE Aerospace. Strengthened system resilience.</p>
+                    </div>
+                </div>
+                <div class="project-card scroll-reveal md:mt-40">
+                    <div class="project-inner relative aspect-[16/10] bg-[#111] overflow-hidden border border-white/5">
+                        <img src="project_automation.png" class="w-full h-full object-cover grayscale opacity-50">
+                        <div class="absolute bottom-8 left-8"><h3 class="text-3xl font-black uppercase italic leading-none">Automation</h3></div>
+                    </div>
+                    <div class="mt-8 space-y-4">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-white/60">B2B Onboarding</h4>
+                        <p class="text-white/40 text-sm max-w-sm">90% productivity gain. Automated bulk notification workflow.</p>
+                    </div>
+                </div>
+                <!-- Additional Projects -->
+                <div class="project-card scroll-reveal">
+                    <div class="project-inner relative aspect-[16/10] bg-[#111] overflow-hidden border border-white/5">
+                        <img src="project_pdf.png" class="w-full h-full object-cover grayscale opacity-50">
+                        <div class="absolute bottom-8 left-8"><h3 class="text-3xl font-black uppercase italic leading-none">Optimization</h3></div>
+                    </div>
+                    <div class="mt-8 space-y-4">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-white/60">PDF Generation</h4>
+                        <p class="text-white/40 text-sm max-w-sm">87% faster processing. CIO level recognition for technical excellence.</p>
+                    </div>
+                </div>
+                <div class="project-card scroll-reveal md:mt-40">
+                    <div class="project-inner relative aspect-[16/10] bg-[#111] overflow-hidden border border-white/5">
+                        <img src="project_finance.png" class="w-full h-full object-cover grayscale opacity-50">
+                        <div class="absolute bottom-8 left-8"><h3 class="text-3xl font-black uppercase italic leading-none">Scalability</h3></div>
+                    </div>
+                    <div class="mt-8 space-y-4">
+                        <h4 class="text-sm font-bold uppercase tracking-widest text-white/60">Asset Workflow</h4>
+                        <p class="text-white/40 text-sm max-w-sm">Calculations automation. Settlement turnaround from 2 days to same-day.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Arsenal -->
+        <section id="tech" class="py-40 px-8 max-w-7xl mx-auto border-t border-white/5">
+            <div class="grid md:grid-cols-2 gap-20">
+                <div class="scroll-reveal">
+                    <span class="mono text-cyan-400 text-[10px] uppercase tracking-[0.5em] mb-4 block">03 // The Arsenal</span>
+                    <h2 class="text-6xl font-black tracking-tighter uppercase leading-none mb-12">Technical<br>Mastery.</h2>
+                    <div class="space-y-8">
+                        <div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] text-white/40 mb-2">Programming</div>
+                            <div class="text-xl font-bold">Java (8, 17), TypeScript, JavaScript</div>
+                        </div>
+                        <div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] text-white/40 mb-2">Frameworks</div>
+                            <div class="text-xl font-bold">Spring Boot, Hibernate, Angular, Struts</div>
+                        </div>
+                        <div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] text-white/40 mb-2">Cloud</div>
+                            <div class="text-xl font-bold">AWS, Jenkins, CI/CD, Git</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/5 rounded-3xl p-12 border border-white/5 scroll-reveal">
+                    <h3 class="text-3xl font-black italic uppercase mb-12">Accolades</h3>
+                    <div class="space-y-8">
+                        <div class="border-b border-white/5 pb-4"><div class="text-white font-bold uppercase tracking-widest text-sm mb-1">Contextual Masters Award</div><p class="text-white/30 text-[10px] uppercase">Spring Boot 3 migration lead</p></div>
+                        <div class="border-b border-white/5 pb-4"><div class="text-white font-bold uppercase tracking-widest text-sm mb-1">CIO Level Recognition</div><p class="text-white/30 text-[10px] uppercase">Automation & Process Excellence</p></div>
+                        <div class="pb-4"><div class="text-white font-bold uppercase tracking-widest text-sm mb-1">11X CLAP Awards</div><p class="text-white/30 text-[10px] uppercase">Consistent High Performance</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact" class="py-60 px-8 bg-cyan-400 text-black text-center relative overflow-hidden">
+            <h2 class="text-[40vw] absolute inset-0 flex items-center justify-center font-black italic opacity-10 pointer-events-none">SYNC</h2>
+            <div class="relative z-10">
+                <h2 class="text-8xl font-black tracking-tighter mb-12 uppercase italic leading-none">Let's<br>Sync.</h2>
+                <a href="mailto:smitkotak1999@gmail.com" class="text-3xl font-bold border-b-4 border-black pb-2 hover:bg-black hover:text-cyan-400 px-4 transition-all inline-block mb-12">smitkotak1999@gmail.com</a>
+                <div class="flex justify-center gap-12 font-mono text-[10px] uppercase tracking-[0.4em] font-black">
+                    <a href="https://www.linkedin.com/in/smit-kotak-170804129/" target="_blank" rel="noopener noreferrer" class="hover:opacity-60 transition-opacity">LinkedIn</a>
+                    <a href="#" class="hover:opacity-60 transition-opacity">GitHub</a>
+                </div>
+                <p class="mt-20 text-[8px] uppercase tracking-[0.6em] font-black opacity-40">SMIT KOTAK // TCS // 2026</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // Canvas BG
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+        const particles = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if(this.x < 0 || this.x > w) this.vx *= -1;
+                if(this.y < 0 || this.y > h) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for(let i=0; i<80; i++) particles.push(new Particle());
+
+        function loop() {
+            ctx.clearRect(0, 0, w, h);
+            particles.forEach(p => {
+                p.update(); p.draw();
+                particles.forEach(p2 => {
+                    let d = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(d < 150) {
+                        ctx.strokeStyle = `rgba(0, 255, 255, ${1 - d/150})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                });
+            });
+            requestAnimationFrame(loop);
+        }
+        loop();
+
+        // Circles
+        const heroCircles = document.getElementById('hero-circles');
+        for(let i=1; i<=3; i++) {
+            const c = document.createElement('div');
+            c.className = 'circle-anim';
+            c.style.width = c.style.height = '400px';
+            heroCircles.appendChild(c);
+            gsap.to(c, { scale: i * 2, opacity: 0, duration: 4, repeat: -1, delay: i * 0.8, ease: 'none' });
+        }
+
+        // Trendy Cinematic Loader Logic
+        const words = document.querySelectorAll('.loader-word');
+        const loaderBar = document.getElementById('loader-bar');
+        let currentWord = 0;
+
+        const tl = gsap.timeline({
+            onComplete: () => {
+                gsap.to('#loader', { y: "-100%", duration: 1.2, ease: "expo.inOut" });
+                gsap.to('#main-content', { opacity: 1, duration: 1 });
+                gsap.from('.reveal', { y: 100, opacity: 0, stagger: 0.1, duration: 1.2, ease: 'power4.out' });
+            }
+        });
+
+        // Animate Bar
+        tl.to(loaderBar, { width: "100%", duration: 3, ease: "none" });
+
+        // Cycle Words
+        words.forEach((word, index) => {
+            tl.set(word, { display: 'block', y: 100 }, index * 0.7);
+            tl.to(word, { y: 0, duration: 0.5, ease: "expo.out" }, index * 0.7);
+            if(index < words.length - 1) {
+                tl.to(word, { y: -100, duration: 0.5, ease: "expo.in", delay: 0.2 }, (index + 1) * 0.7 - 0.5);
+                tl.set(word, { display: 'none' }, (index + 1) * 0.7);
+            }
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            gsap.from(el, { scrollTrigger: el, y: 100, opacity: 0, duration: 1.5, ease: 'power4.out' });
+        });
+    </script>
+</body>
+</html>
