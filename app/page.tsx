@@ -249,19 +249,19 @@ export default function Home() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                 <span className="font-mono text-cyan text-[10px] uppercase tracking-[0.5em] mb-4 block">01 // Background</span>
-                 <h2 className="text-5xl font-black tracking-tighter uppercase italic leading-none mb-8">Origins of<br />Efficiency.</h2>
-                 <p className="text-xl text-white/50 leading-relaxed mb-8">
-                    Currently a <span className="text-white font-bold">Software Developer at Tata Consultancy Services</span>, leading offshore teams in architecting high-performance Java systems. My focus is on <span className="text-cyan">Spring Boot modernization</span>, security hardening, and process excellence.
+                 <span className="font-mono text-cyan text-xs uppercase tracking-[0.5em] mb-4 block">01 // Background</span>
+                 <h2 className="text-6xl font-black tracking-tighter uppercase italic leading-none mb-8 text-cyan">Origins of<br />Efficiency.</h2>
+                 <p className="text-2xl text-white/50 leading-relaxed mb-8">
+                    Currently a <span className="text-white font-bold">Software Developer at Tata Consultancy Services</span>, leading offshore teams in architecting high-performance Java systems. My focus is on <span className="text-cyan font-bold">Spring Boot modernization</span>, security hardening, and process excellence for mission-critical enterprise environments.
                  </p>
                  <div className="flex gap-12">
                     <div>
-                       <div className="text-4xl font-black mb-2">3.5+</div>
-                       <div className="text-[10px] uppercase tracking-widest text-white/30">Years of Exp</div>
+                       <div className="text-5xl font-black mb-2 text-cyan">3.5+</div>
+                       <div className="text-xs uppercase tracking-widest text-white/30">Years of Exp</div>
                     </div>
                     <div>
-                       <div className="text-4xl font-black mb-2">11</div>
-                       <div className="text-[10px] uppercase tracking-widest text-white/30">TCS Awards</div>
+                       <div className="text-5xl font-black mb-2 text-cyan">11</div>
+                       <div className="text-xs uppercase tracking-widest text-white/30">TCS Awards</div>
                     </div>
                  </div>
               </motion.div>
@@ -272,11 +272,11 @@ export default function Home() {
            </div>
         </section>
 
-        {/* Projects / Manifesto */}
+        {/* Manifesto (Projects) */}
         <section id="projects" className="py-40 px-8 max-w-7xl mx-auto border-t border-white/5">
           <div className="flex justify-between items-end mb-32">
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic leading-none">The<br />Manifesto</h2>
-            <div className="font-mono text-[10px] text-cyan uppercase tracking-widest mb-4 border-b border-cyan/30 pb-2">Selected Works [06]</div>
+            <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase italic leading-none text-cyan">The<br />Manifesto</h2>
+            <div className="font-mono text-xs text-cyan uppercase tracking-widest mb-4 border-b border-cyan/30 pb-2 whitespace-nowrap">Selected Works [06]</div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-x-20 gap-y-40">
@@ -284,14 +284,14 @@ export default function Home() {
               index="01"
               title="Modernization"
               subtitle="Spring Boot 3 Migration"
-              desc="Led modernization of 12+ critical production applications for GE Aerospace. Strengthened system resilience and security posture."
+              desc="Led modernization of 12+ critical production applications for GE Aerospace. Strengthened system resilience and fixed critical security vulnerabilities across the enterprise."
               img="/project_modernization.png"
             />
             <ProjectCard 
               index="02"
               title="Automation"
               subtitle="B2B Onboarding"
-              desc="90% productivity gain via automated bulk email notification workflow for onboarding. From 2 min/record to 10+ in <3 mins."
+              desc="90% productivity gain via automated bulk email notification workflow for onboarding. Transformed 2 min/record manual tasks into sub-3 minute batch executions."
               img="/project_automation.png"
               className="md:mt-40"
             />
@@ -299,14 +299,14 @@ export default function Home() {
               index="03"
               title="Optimization"
               subtitle="PDF Generation Service"
-              desc="87% reduction in processing time (15 mins to 2 mins) by refactoring Spring Boot backend code. Saving 90+ hours weekly."
+              desc="87% reduction in processing time (15 mins to 2 mins) by refactoring Spring Boot backend code. Successfully saving over 90+ hours of manual effort weekly."
               img="/project_pdf.png"
             />
             <ProjectCard 
               index="04"
               title="Scalability"
               subtitle="Finance Asset Workflow"
-              desc="India Asset Workflow financial calculations automation. Reduced settlement turnaround from 1-2 days to same-day processing."
+              desc="India Asset Workflow financial calculations automation. Reduced settlement turnaround from 2 days to same-day processing with real-time settlement forwarding."
               img="/project_finance.png"
               className="md:mt-40"
             />
@@ -314,14 +314,14 @@ export default function Home() {
               index="05"
               title="Performance"
               subtitle="Server-side Pagination"
-              desc="Implemented Spring Data JPA Pageable for large datasets. Reduced API response payload by 70% and improved frontend load times."
+              desc="Implemented Spring Data JPA Pageable for large datasets. Reduced API response payload by 70% and significantly improved frontend load times for data-heavy modules."
               img="/project_modernization.png"
             />
             <ProjectCard 
               index="06"
               title="Modern Stack"
               subtitle="Struts to Spring Migration"
-              desc="Spearheaded migration of critical enterprise apps from Struts 2.x to Spring Boot/Angular. Eliminated high-severity vulnerabilities."
+              desc="Spearheaded migration of critical enterprise apps from Struts 2.x to Spring Boot/Angular. Modernized tech stack and eliminated high-severity framework vulnerabilities."
               img="/project_automation.png"
               className="md:mt-40"
             />
@@ -475,13 +475,13 @@ function ProjectCard({ index, title, subtitle, desc, img, className }: any) {
         <img src={img} alt={title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="absolute bottom-8 left-8">
-           <div className="text-[10px] font-mono text-cyan uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity delay-300">{index}</div>
-           <h3 className="text-3xl font-black uppercase italic leading-none">{title}</h3>
+           <div className="text-xs font-mono text-cyan uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity delay-300">{index}</div>
+           <h3 className="text-4xl font-black uppercase italic leading-none group-hover:text-cyan transition-colors">{title}</h3>
         </div>
       </div>
       <div className="mt-8 space-y-4">
-        <h4 className="text-sm font-bold uppercase tracking-widest text-white/60">{subtitle}</h4>
-        <p className="text-white/40 text-sm max-w-sm leading-relaxed">{desc}</p>
+        <h4 className="text-lg font-bold uppercase tracking-widest text-cyan">{subtitle}</h4>
+        <p className="text-white/50 text-xl max-w-sm leading-relaxed">{desc}</p>
         <div className="w-10 h-[2px] bg-cyan group-hover:w-full transition-all duration-700" />
       </div>
     </motion.div>
